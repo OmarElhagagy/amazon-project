@@ -101,5 +101,13 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
         quantity: 1
       });
     }
+
+    let cartQuantity = 0;
+    cart.forEach((item) => {
+      cartQuantity += item.quantity; //calculate the total quantity of all the items in the cart
+    })
+
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = cartQuantity; //update the cart quantity in the header
   });
 });
