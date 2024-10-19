@@ -33,6 +33,8 @@ export function addToCart(productId) {
         quantity: 1
       });
     }
+
+    saveToStorage(); // we are saving the cart to the local storage
 }
 
 export function removeFromCart(productId) { // this function will take productId and remove the product from the cart
