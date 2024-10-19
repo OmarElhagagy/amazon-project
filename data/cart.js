@@ -1,12 +1,20 @@
 // we are going to choose which variables we want ot be accessed outside this file using export
-export let cart= [{
-  productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6', // how we are not saving the rest of the data for the product just the id
-                                                     // bec we are using a special technique we are just saving the product id then we can use this id to get the rest of the data this is called Normalizing the data
-  quantity: 2
-}, {
-  productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d', // we will use the productId to search for the product in order to get the rest of the data
-  quantity: 1
-}];
+export let cart = JSON.parse(localStorage.getItem('cart'));
+
+if (!cart) { // if there is no cart in the local storage we will create an empty cart
+  cart = [{ 
+    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+    quantity: 2,
+  }, {
+    productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+    quantity: 1
+  }];
+}
+
+function saveToStorage() { // this function will save the cart to the local storage
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
 
 export function addToCart(productId) {
   let matchingItem;  
@@ -39,4 +47,5 @@ export function removeFromCart(productId) { // this function will take productId
 
   cart = newCart; // we are reassigning the cart variable to the newCart array
 
+  saveToStorage(); // we are saving the cart to the local storage
 }
