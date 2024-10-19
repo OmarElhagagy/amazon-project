@@ -43,7 +43,7 @@
           <span class="orders-text">& Orders</span>
         </a>
 
-        <a class="cart-link header-link" href="checkout.html">
+        <a class="cart-link header-link" href="checkout.html"> <!-- what this does it look for a file called checkout.html beside the current file amazon.html  -->
           <img class="cart-icon" src="images/icons/cart-icon.png">
           <div class="cart-quantity js-cart-quantity">0</div>
           <div class="cart-text">Cart</div>
@@ -55,8 +55,11 @@
       <div class="products-grid js-products-grid"> <!-- This is the container for all the products. -->
       </div>
     </div>
-    <script src="data/cart.js"></script>
-    <script src="data/products.js"></script>
-    <script src="scripts/amazon.js"></script>
+
+    <!-- we are going to create modules -->
+     <!--making alot of script can cause naming conflicts (2 variables with the same name)-->
+    
+    
+    <script type="module" src="scripts/amazon.js"></script> <!-- type="module" attribute lets the file get variables out of other files -->
   </body>
 </html>

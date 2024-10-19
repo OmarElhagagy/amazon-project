@@ -1,0 +1,7 @@
+// we will create a function that does the same thing as this code $${(matchingProduct.price / 100).toFixed(2)} and we can share this function between the two files
+// we will name the file utils as this code is $${(matchingProduct.price / 100).toFixed(2)} a useful utility that we want to share 
+// this file will contain utilities that are related to money
+
+export function formatCurrency(priceCents) {
+  return (priceCents / 100).toFixed(2);
+}
