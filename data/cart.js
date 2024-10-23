@@ -1,18 +1,20 @@
 // we are going to choose which variables we want ot be accessed outside this file using export
-export let cart = JSON.parse(localStorage.getItem('cart'));
+export let cart = JSON.parse(localStorage.getItem('cart')); // we need to get the cart from local storage and we need to parse it bec its a string
 
-if (!cart) { // if there is no cart in the local storage we will create an empty cart
+if (!cart) { // if there is no cart in the local storage we will give it this default value
   cart = [{ 
     productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
     quantity: 2,
+    deliveryOptionId: '1'
   }, {
     productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-    quantity: 1
+    quantity: 1,
+    deliveryOptionId: '2'
   }];
 }
 
 function saveToStorage() { // this function will save the cart to the local storage
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem('cart', JSON.stringify(cart)); //setItem takes 2 strings first is the name of the item we want to save and the second is the data we want to save and local storage can only save strings so we need to convert the cart array to a string using JSON.stringify
 }
 
 
@@ -30,11 +32,13 @@ export function addToCart(productId) {
     } else {
       cart.push( {
         productId: productId,
-        quantity: 1
+        quantity: 1,
+        deliveryOptionId: '1'
       });
     }
 
     saveToStorage(); // we are saving the cart to the local storage
+                     // whenever we update the cart its saved in the local storage
 }
 
 export function removeFromCart(productId) { // this function will take productId and remove the product from the cart

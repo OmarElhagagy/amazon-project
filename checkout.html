@@ -83,6 +83,11 @@
       </div>
     </div>
 
+    <!-- the problem with script tags it runs the code directly on the page and that can cause naming conflicts -->
+    <!-- to use external libraries and JS modules together we are going to use a special version of the library called an ESM version (EcmaScript Module) and ESM is another name for JS the ESM is a version that works with JS modules  -->
+    
+    <!-- creates a function dayjs()--> <!-- instead of using a file path we are going to give it a url including js coding -->
+    <!-- how can we put the script tag above at the top we generally load external libraries first and then we can use the library in our own code below -->
     <script type="module" src="scripts/checkout.js"></script>
   </body>
 </html>
