@@ -1,4 +1,4 @@
-import {cart, removeFromCart} from '../data/cart.js'; // we will loop through the cart and generate the html // this is called Named Export
+import {cart, removeFromCart, updateDeliveryOption} from '../data/cart.js'; // we will loop through the cart and generate the html // this is called Named Export
 import { products } from '../data/products.js';
 import {formatCurrency} from './utils/money.js' //./ means in the same directory
 //import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js'; // instead of using a local file we can use a url to import a module
@@ -110,7 +110,7 @@ function deliveryOptionsHTML(matchingProduct, cartItem) { // 3 steps: 1. loop th
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId ? 'checked' : ''; // we will check if the delivery option id in the cart matches the delivery option id in the delivery options array
 
       html +=`
-            <div class="delivery-option">
+            <div class="delivery-option js-delivery-option" data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
               <input type="radio"
                 ${isChecked}
                 class="delivery-option-input"
@@ -144,3 +144,13 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
     container.remove();
   })
 })
+
+document.querySelectorAll('.js-delivery-option')
+  .forEach((element) => {
+    element.addEventListener('click', () => {
+      //update deliveryOptionId in the cart
+      const {productId, deliveryOptionId} = element.dataset; // we will get the product id and delivery option id from the data
+      //the code above is shorthand property its the same as const productId = element.dataset.productId; const deliveryOptionId = element.dataset.deliveryOptionId;
+      updateDeliveryOption(productId, deliveryOptionId); // how do we get these 2 values we will use the data attribute
+    });
+  })
