@@ -9,7 +9,6 @@ export function renderPaymentSummary() {
   let shippingPriceCents = 0;
   //1. save the data (MODEL)
   cart.forEach((cartItem) => {
-    // we need to price * quantity so first we need to use the productId to get the full product details
     const product = getProduct(cartItem.productId);
     productPriceCents += product.priceCents * cartItem.quantity;
 
