@@ -3,7 +3,7 @@
 // this file will contain utilities that are related to money
 
 export function formatCurrency(priceCents) {
-  return (priceCents / 100).toFixed(2);
+  return (Math.round(priceCents) / 100).toFixed(2);
 }
 
 export default formatCurrency;  // when we import that we import it with the name without the curly brackets

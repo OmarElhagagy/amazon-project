@@ -1,9 +1,9 @@
 import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart.js'; // we will loop through the cart and generate the html // this is called Named Export
-import { products } from '../../data/products.js';
+import { products, getProduct } from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js' //./ means in the same directory
 //import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js'; // instead of using a local file we can use a url to import a module
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // the dayjs exports one thing which is dayjs() so they chose to default // this different syntax called Default Export another way of exporting and we can use it when we only want to export 1 thing from a file amd it makes the syntax cleaner bec we dont write curly brackets
-import {deliveryOptions} from '../../data/deliveryOptions.js'; // we will use the delivery options to generate the html
+import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'; // we will use the delivery options to generate the html
 
 
 
@@ -15,32 +15,23 @@ console.log(dateFormat)
 export function renderOrderSummary() {
   let cartSummaryHTML = ''; // we will save the html in this variable
 
+  
 
   cart.forEach((cartItem) => { // this is the funcion we want to call above in deliveryOptionsHTML function
     const productId = cartItem.productId; // we will get the product id from the cartItem and we will use it to search for the full product
-
-    let matchingProduct; // variable to save the result of the search
-
-    products.forEach((product) => { //loop through products array
-      if (product.id === productId) { // if the product id in the cart matches the product id in the products array
-        matchingProduct = product // save the product in the matchingProduct variable
-      }
-    });
-
+    // this part takes a product id and finds the matching product
     
+    const matchingProduct = getProduct(productId); // variable to save the result of the search
+
     // we are using the same code in checkout.js and amazon.js we can share this code between the two files by modules
     // we wont need / 100).toFixed(2) part as we made a function for it in another file
     // instead of using delivery-option-1 we will use delivery-option-${product.id} so that each product has its own delivery options
 
     const deliveryOptionId = cartItem.deliveryOptionId; // we will use this id to get the full delivery option
+    //this below takes the deliveryOptionId and finds the full deliveryOption
+    const deliveryOption = getDeliveryOption(deliveryOptionId); // variable to save the result of the search
 
-    let deliveryOption; // variable to save the result of the search
-
-    deliveryOptions.forEach((option) => {
-      if (option.id === deliveryOptionId) { // if the delivery option id in the cart matches the delivery option id in the delivery options array
-        deliveryOption = option // save the delivery option in the deliveryOption
-    }
-    });
+   
 
     const today = dayjs(); // this code will take the delivery option we selected and calculate the delivery date we need to show
       const deliveryDate = today.add( 

@@ -1,3 +1,15 @@
+export function getProduct(productId) {
+  let matchingProduct; // variable to save the result of the search
+
+    products.forEach((product) => { //loop through products array
+      if (product.id === productId) { // if the product id in the cart matches the product id in the products array
+        matchingProduct = product // save the product in the matchingProduct variable
+      }
+    });
+
+    return matchingProduct; // so we use this outside the function
+}
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
