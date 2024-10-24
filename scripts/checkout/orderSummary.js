@@ -4,13 +4,8 @@ import {formatCurrency} from '../utils/money.js' //./ means in the same director
 //import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js'; // instead of using a local file we can use a url to import a module
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // the dayjs exports one thing which is dayjs() so they chose to default // this different syntax called Default Export another way of exporting and we can use it when we only want to export 1 thing from a file amd it makes the syntax cleaner bec we dont write curly brackets
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'; // we will use the delivery options to generate the html
+import { renderPaymentSummary } from './paymentSummary.js';
 
-
-
-const today = dayjs(); // external libraries often has documentation page shows us how to use the library
-const deliveryDate = today.add(7, 'day'); // we are adding 7 days to the current date
-const dateFormat = deliveryDate.format('dddd, MMMM D'); // we are formatting the date to be in the format we want
-console.log(dateFormat)
 
 export function renderOrderSummary() {
   let cartSummaryHTML = ''; // we will save the html in this variable
@@ -134,6 +129,8 @@ export function renderOrderSummary() {
       // we will use the DOM to remove the product from the html
       const container = document.querySelector(`.js-cart-item-container-${productId}`); // we will use the product id to select the product and remove it
       container.remove(); // the DOM
+
+      renderPaymentSummary(); // when we click delete we are going to update the data and then regenerate the html using this function
     })
   })
 
@@ -146,6 +143,7 @@ export function renderOrderSummary() {
         updateDeliveryOption(productId, deliveryOptionId); // how do we get these 2 values we will use the data attribute
         renderOrderSummary(); // instead of usong the DOM to update the html we will call the renderOrderSummary function to re run all the code
         // inside the renderOrderSummary function we called the renderOrderSummary function again meaning it can call itself or re-run itself and this is called recursion its useful when a function needs to re-run its code
+        renderPaymentSummary(); // when we click the delivery option we are going to update the data and then regenerate the html using this function (CONTROLLER)
       });
     })
 }
