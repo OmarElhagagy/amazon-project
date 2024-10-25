@@ -14,15 +14,15 @@ if (!cart) { // if there is no cart in the local storage we will give it this de
 }
 
 function saveToStorage() { // this function will save the cart to the local storage
-  localStorage.setItem('cart', JSON.stringify(cart)); //setItem takes 2 strings first is the name of the item we want to save and the second is the data we want to save and local storage can only save strings so we need to convert the cart array to a string using JSON.stringify
+  localStorage.setItem('cart', JSON.stringify(cart)); 
 }
 
 
 export function addToCart(productId) {
   let matchingItem;  
 
-    cart.forEach((cartItem) => {              //item will contain product name and quantity
-      if (productId === cartItem.productId) { //how to figure if a product is already in the cart
+    cart.forEach((cartItem) => {              // item will contain product name and quantity
+      if (productId === cartItem.productId) { // figure if a product is already in the cart
         matchingItem = cartItem; // if we found a matching item we will save it in matchingItem variable
       }
     });
@@ -42,7 +42,7 @@ export function addToCart(productId) {
 }
 
 export function removeFromCart(productId) { // this function will take productId and remove the product from the cart
-  //steps 1.create a new array 2. loop through the array 3. add each product to the new array except this productId
+  
   const newCart = [];
   cart.forEach((cartItem) => {
     if (cartItem.productId !== productId){ // add each cartItem to the new array except if it has the productId
