@@ -70,5 +70,5 @@ export function renderPaymentSummary() {
       `;
 
       document.querySelector('.js-payment-summary')
-        .innerHTML = paymentSummaryHTML;
+        .innerHTML = paymentSummaryHTML; // after we generate the HTML we tried to put the HTML in an element with class js-payment-summary and this element doesnt exist inour test so we need to add this element to our test 
 }
