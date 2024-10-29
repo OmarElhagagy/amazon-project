@@ -36,6 +36,29 @@ class Product {
   getPrice() {
     return `$${formatCurrency(this.priceCents)}`
   }
+
+  // Only the clohing class have extraInfoHTML method if its just a regular product its not gonna have this method and cause an error
+  extraInfoHTML() {
+    return '';
+  }
+}
+
+class Clothing extends Product { // we use Inheritance when we have class which is more specific type of another class MEANING Clothig is more specific type of Product // Inheritance using extend is a way to create a new class from an existing class. The new class is called a subclass, and the existing class is called a superclass. The subclass inherits all the properties and methods from the superclass.
+  sizeChartLink;
+
+  constructor(productDetails) { // Clothing inherts all the properties from Product so we need to set the id, image, name, rating, priceCents BUT instead of doing this one by one inheritance gives us a shortcut we can use the constructor in the parent class uing super() it calls the constructor of the parent class
+    super(productDetails); // this will call the constructor of the parent class and pass the product
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+  // Clothing extends Product class means Clothes will automatically get the extraInfoHTML method BUT then we defined this method again in Clothing so this will override the parents method This technique called method overriding
+  extraInfoHTML() { // Generate some HTML that contain extra information about this product like size chart
+    // If we need access to the parents method theres a feature called super.extraInfoHTML();
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
+  }
 }
 /*
   we dont do this as its not a good practice to create a class with no constructor and no properties
@@ -88,7 +111,7 @@ export const products = [
       "apparel",
       "mens"
     ],
-    type: "clothing",
+    type: "clothing", // Discriminator property. Tells us which class should we convert this to // We are going to convert some of them like tshirts into clothing class instead to make it more specific. a property called Type tells us which class we should use 
     sizeChartLink: "images/clothing-size-chart.png"
   },
   {
@@ -704,5 +727,8 @@ export const products = [
     ]
   }
 ].map((productDetails) => {// we will convert the object into class // map loops through the array and for each value it runs a function so we will give it a function to run for each value and this inner function will get a parameter and this parameter is each value in the array AND map returns a new array with the results of the function
-  return new Product(productDetails)
+  if (productDetails.type === 'clothing') { // we will use Type property to decide which class to use 
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails);
 }); 
