@@ -61,12 +61,46 @@ class Clothing extends Product { // we use Inheritance when we have class which 
   }
 }
 /*
+// built in date class
+const date = new Date();
+console.log(date);
+
+console.log(date.toLocaleTimeString());
+
+
+/*
   we dont do this as its not a good practice to create a class with no constructor and no properties
         This is a setup code
   product1.id = '';
   product1.image = '';
   product1.name = '';
+
+
+console.log(this);
+
+const object2 = { // if we are inside a method we can use "this" and it will point to the object if we are outside a method theres no object to point to
+  a: 2,
+  b: this.a
+};
+
+
+function logThis() { // Inside a function we can change "this"  to whatever we want
+  console.log(this);
+}
+logThis();
+logThis.call('hello'); // .call runs the function it does the same as line above except we can set the value of this to whatever we want
+
+
+// Arrow function doesnt change the value of "this"
+this
+const object3 = {
+  method: () => {
+    console.log(this); // "this" will have the same value as outside the arrow function
+  }
+};
+object3.method();
 */
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
