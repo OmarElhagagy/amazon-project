@@ -1,3 +1,5 @@
+import {formatCurrency} from '../scripts/utils/money.js';
+
 export function getProduct(productId) {
   let matchingProduct; // variable to save the result of the search
 
@@ -10,6 +12,38 @@ export function getProduct(productId) {
     return matchingProduct; // so we use this outside the function
 }
 
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor(productDetails) {
+    this.id = productDetails.id; // what value do we set the id to? the value of the id is inside of these objects below so wehn we create a product in new Product() we will put the object inside the brackets and then it will get inside the constructor 
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+  }
+
+  // methods for calculating the starts and the price
+  // and we will move the code from our html into this class
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`
+  }
+}
+/*
+  we dont do this as its not a good practice to create a class with no constructor and no properties
+        This is a setup code
+  product1.id = '';
+  product1.image = '';
+  product1.name = '';
+*/
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -669,4 +703,6 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails) => {// we will convert the object into class // map loops through the array and for each value it runs a function so we will give it a function to run for each value and this inner function will get a parameter and this parameter is each value in the array AND map returns a new array with the results of the function
+  return new Product(productDetails)
+}); 
