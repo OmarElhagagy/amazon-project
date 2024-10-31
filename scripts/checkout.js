@@ -24,7 +24,7 @@ Promise.all([ // An array of promises and we will give this array to Promise.all
   renderPaymentSummary();
 });
 
-
+/*
 new Promise((resolve) => { // This inner function gets a parameter called resolve its a function works similar to done() function. Lets us control when to go to the next step // promise is a built in class and when we create a prmise we need to give it a function. When we create this promise it will run this function immediately
   loadProducts(() => { // It will run this function after loadProducts is finished // we will give loadProducts a callback function like we did below 
     resolve('value1'); // Once it finished we want to go to the next step so we will call resolve
@@ -44,7 +44,7 @@ new Promise((resolve) => { // This inner function gets a parameter called resolv
     renderPaymentSummary();
   });
   //loadCart(); // We have a problem here we want for loadCart() to finish and then go the next step we usually do this using reslove but we dont have reslove inside this function to solve this problem inside .then() we will return a new promise
-
+*/
 
 
 /*
