@@ -76,3 +76,16 @@ export function updateDeliveryOption(productId, deliveryOptionId) { // when we u
 
   saveToStorage();
 }
+
+export function loadCart(func) { //Callback (a function to run in the future) // we will call it func which means it contains a function so we basically save the function renderProductsGrid in a parameter called func
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => { // It takes 2 param first is the event we want to listen for in this case the stringg load which means the response has loaded. Second param is the function we want to run after the response loads
+    console.log(xhr.response);
+    func();
+  });
+  
+
+  xhr.open('GET', 'https://supersimplebackend.dev/cart');
+  xhr.send();
+}
