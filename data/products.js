@@ -101,6 +101,33 @@ const object3 = {
 object3.method();
 */
 
+
+export let products = [];
+
+
+export function loadProducts(func) { //Callback (a function to run in the future) // we will call it func which means it contains a function so we basically save the function renderProductsGrid in a parameter called func
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => { // It takes 2 param first is the event we want to listen for in this case the stringg load which means the response has loaded. Second param is the function we want to run after the response loads
+    products = JSON.parse(xhr.response).map((productDetails) => { // its JSON and we want to convert it to JS object after converting we will reaplace the products above with what we loaded from the backend
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+    console.log('load products');
+    func();
+  });
+  
+
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
+  xhr.send();
+}
+
+
+/*
+            Instead of loading the products from this file we will load the products from the backend
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -766,3 +793,4 @@ export const products = [
   }
   return new Product(productDetails);
 }); 
+*/
