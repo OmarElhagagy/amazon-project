@@ -1,17 +1,19 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import {loadProducts} from '../data/products.js';
+import {loadProducts, loadProductsFetch} from '../data/products.js';
 import { loadCart } from "../data/cart.js";
 //import '../data/cart-class.js';
 //import '../data/backend-practice.js';
 
 // Promise.all 1.lets us run multiple promises at the same time 2. wait for all of them to finish
 Promise.all([ // An array of promises and we will give this array to Promise.all() and it will wait for all the promises to finish before going to next step
+  loadProductsFetch()
+  /* instead of this fetch already returns a promise so we dont need to create a new promise
   new Promise((resolve) => { 
     loadProducts(() => { 
       resolve('value1'); 
     }); 
-  }),
+  })*/,
   new Promise((resolve) => {
     loadCart(() => {
       resolve();

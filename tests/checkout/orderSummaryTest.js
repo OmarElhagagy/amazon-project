@@ -1,16 +1,17 @@
 import {renderOrderSummary} from '../../scripts/checkout/orderSummary.js';
 import {loadFromStorage, cart} from '../../data/cart.js';
-import {loadProducts} from '../../data/products.js';
+import {loadProducts, loadProductsFetch} from '../../data/products.js';
 // Integration tests
 describe('test suite: renderOrderSummary', () => { 
   const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
   const productId2 = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
 
   beforeAll((done) => { // done is a functon provided by jasmin when we add this done parameter beforeAll will not automatically proceed next step // beforeAll hook it will run a function before all our tests
-    loadProducts(() => {
-      done(); // lets us control when to go to the next step// this will tell jasmine that we are done with the beforeAll hook and it can proceed to the next step
+    loadProductsFetch().then(() => { //This returns a promise and we can attach more steps to a promise
+      done();
     });
   });
+    
 
   beforeEach(() => { 
     spyOn(localStorage, 'setItem'); // to not mess with localStorage we will mock it
@@ -71,4 +72,4 @@ describe('test suite: renderOrderSummary', () => {
     expect(cart.length).toEqual(1);
     expect(cart[0].productId).toEqual(productId2); 
   });
-});
+})

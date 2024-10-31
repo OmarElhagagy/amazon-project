@@ -104,11 +104,33 @@ object3.method();
 
 export let products = [];
 
-
+// fetch() // sends a request to the backend
+// how to get the response
+export function loadProductsFetch() {
+  const promise = fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response) => { // The way it works is that fetch() will send a request to the backend when we get a response it will go to the next step also it will save the response inisde a parameter called response in .then((response) => {})
+    return response.json() // This gets the data attached to the response and converts it to a JS object and its asynchronous it returns a promise so we need to wait for this promise to finish before we continue to the next step. To do that inisde .then() we can return another promise using return
+  }).then((productsData) => { // when response.json() finishes its going to give us the data thats attached to the response and save it inside this parameter
+    products = productsData.map((productDetails) => { // its JSON and we want to convert it to JS object after converting we will reaplace the products above with what we loaded from the backend
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+    console.log('load products');
+  });
+  return promise; // so we are calling fetch which creates a promise and then we will save this promise inside varaible called promise and return the promise And we can add even more steps after this promise 
+}
+/*
+loadProductsFetch().then(() => { // This will give us the promise and then we can attach anothe step using .then()
+  console.log('next step')
+}); 
+*/
 export function loadProducts(func) { //Callback (a function to run in the future) // we will call it func which means it contains a function so we basically save the function renderProductsGrid in a parameter called func
   const xhr = new XMLHttpRequest();
 
-  xhr.addEventListener('load', () => { // It takes 2 param first is the event we want to listen for in this case the stringg load which means the response has loaded. Second param is the function we want to run after the response loads
+  xhr.addEventListener('load', () => { // This uses callback. Fetch uses a Promise  // It takes 2 param first is the event we want to listen for in this case the stringg load which means the response has loaded. Second param is the function we want to run after the response loads
     products = JSON.parse(xhr.response).map((productDetails) => { // its JSON and we want to convert it to JS object after converting we will reaplace the products above with what we loaded from the backend
       if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
@@ -124,7 +146,7 @@ export function loadProducts(func) { //Callback (a function to run in the future
   xhr.send();
 }
 
-
+// Fetch() is better way to make HTTP reequest
 /*
             Instead of loading the products from this file we will load the products from the backend
 
