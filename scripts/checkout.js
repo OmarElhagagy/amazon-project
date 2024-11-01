@@ -20,16 +20,28 @@ function loadPage() {
 }
 */ 
 
+// Error handling in async await we  use try catch method. We could use try catch method with synchronous code(normal code) but its more useful with asynchronous code
+// Why we dont use try catch method every where bec its meant to handle unexpected errors.(code is correct but sth outode our control caused an error) If we know an error might happen we should use if else statement
 // We use async bec it lets us use await. await lets us wait for promise to finish before going to next line
 async function loadPage() { // async makes a function return a promsie  // as this returns a promise we can add a next step
-  // we loaded the products and waited for it to finish then we load the cart
-  await loadProductsFetch() // async await can only be used with promises // We can only use await when we are inside async function // loads products from the backend. This returns a promise so one way to wait for this to finish is to use .then() and give it a function. Instead we use await to wait for this promise to finish
-
-  const value = await new Promise((resolve) => { // we can use await with Promise.all()
-    loadProducts(() => { 
-      resolve('value3'); 
-    }); 
-  })//.then((value) => {}); value1 will be saved in value parameter. But when we use await this value1 is returned from the promise so we can save it in a variable
+  try{ // we will put the code that might throw an error inside try block
+    // we can manually create errors using throw. throw ceates a new error or throws an error that we will catch later. We can give this a value any value like stringor number or object
+    //throw 'error1'; // This will manually create an error when we get an error it will skip the rest of the code and go to catch block
+    
+    await loadProductsFetch() // async await can only be used with promises // We can only use await when we are inside async function // loads products from the backend. This returns a promise so one way to wait for this to finish is to use .then() and give it a function. Instead we use await to wait for this promise to finish
+    // we loaded the products and waited for it to finish then we load the cart
+    const value = await new Promise((resolve, reject) => {// In promises there are 2 ways to manually create an error // we can use await with Promise.all()
+      //throw 'error2'; // It will get an error and will not load the cart and will go to catch block and display the error message
+      loadCart(() => { // In here we load the cart and once it finishes loading we will run this function So this function runs in the future. Instead Promises gives us another way to create an error when we create a new promise it gives us a second parameter called reject. reject is a function and lets us create an error in the future
+        //reject('error3');
+        resolve('value3'); 
+      }); 
+    });//.then((value) => {}); value1 will be saved in value parameter. But when we use await this value1 is returned from the promise so we can save it in a variable
+  
+  } catch (error) { // If any of the code inside try block throws an error we can catch it here
+    console.log('Unexpected error. Please try again later.');
+  }
+  
 
   renderOrderSummary();
   renderPaymentSummary(); 

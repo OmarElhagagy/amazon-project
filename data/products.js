@@ -103,7 +103,7 @@ object3.method();
 
 
 export let products = [];
-
+// To handle errors in promises gives us 2 methods .then() and .catch() .then() is for when the promise is successful and .catch() is for when the promise fails
 // fetch() // sends a request to the backend
 // how to get the response
 export function loadProductsFetch() {
@@ -119,9 +119,14 @@ export function loadProductsFetch() {
       return new Product(productDetails);
     });
     console.log('load products');
+  }).catch((error) => { // If this request has an error its going to go the .catch() method and will run this error function
+    console.log('Unexpected error. Please try again later.');
   });
   return promise; // so we are calling fetch which creates a promise and then we will save this promise inside varaible called promise and return the promise And we can add even more steps after this promise 
 }
+
+
+
 /*
 loadProductsFetch().then(() => { // This will give us the promise and then we can attach anothe step using .then()
   console.log('next step')
@@ -141,10 +146,19 @@ export function loadProducts(func) { //Callback (a function to run in the future
     func();
   });
   
+  // Error handling in callbacks when we send HTTP request we could get unexpectedd errors for ex the the internet connection stopped working
+  // For callbacks we setup seperate callback just for errors
+  xhr.addEventListener('error', (error) => { // This callback gets a param error and this contains info about the error So thats how we handle errors using callbacks // If we get an error we will run this function
+    console.log('Unexpected error. Please try again later.');
+  })
+
+
 
   xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
+
+
 
 // Fetch() is better way to make HTTP reequest
 /*
