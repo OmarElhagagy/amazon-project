@@ -2,9 +2,8 @@ import {cart, addToCart} from '../data/cart.js';
 import {products, loadProducts} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
-// The homepage is empty so whats wrong? HTTP requests are asynchronous loadProducts will send a request to my backend but it takes time for the request to travel across the internet to the backend and travel back so hete it will send the request and the response hasnt been loaded yet so the products array is empty soo we need the HTTP request to finish first and for the response to come back then we will run the rest of the code. So we will 1.put all this code in a function and 2. Give this function to loadProducts
-loadProducts(renderProductsGrid); // we will put the renderProductsGrid function inside loadProducts usning a parameter so remember in JS are values and we can use a function as a parameter so inside loadProducts in products.js so the function renderProductsGrid will be saved in a parameter of loadProducts in products.js 
 
+loadProducts(renderProductsGrid); // we will put the renderProductsGrid function inside loadProducts usning a parameter 
 function renderProductsGrid() {
   let productsHTML = ''; // every time we loop through the array we are going to add the html to this variable
 
