@@ -1,12 +1,11 @@
-// we are going to choose which variables we want ot be accessed outside this file using export
-export let cart; // we are exporting the cart variable so we can access it outside this file
+export let cart; 
 
-loadFromStorage(); // we are calling this function to load the cart from the local storage
+loadFromStorage(); 
 
-export function loadFromStorage() { // in our test after we mock localStorage.getItem we will reload the cart using this function
-  cart = JSON.parse(localStorage.getItem('cart')); // we need to get the cart from local storage and we need to parse it bec its a string
+export function loadFromStorage() { 
+  cart = JSON.parse(localStorage.getItem('cart')); 
 
-  if (!cart) { // if there is no cart in the local storage we will give it this default value
+  if (!cart) { 
     cart = [{ 
       productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
       quantity: 2,
@@ -19,7 +18,7 @@ export function loadFromStorage() { // in our test after we mock localStorage.ge
   }
 }
 
-function saveToStorage() { // this function will save the cart to the local storage
+function saveToStorage() { 
   localStorage.setItem('cart', JSON.stringify(cart)); 
 }
 
@@ -62,7 +61,7 @@ export function removeFromCart(productId) { // this function will take productId
   saveToStorage(); // we are saving the cart to the local storage
 }
 
-export function updateDeliveryOption(productId, deliveryOptionId) { // when we update the delivery option we need to know 1.product we want to update 2. delivery option we want to update 
+export function updateDeliveryOption(productId, deliveryOptionId) { 
   // we will loop through the cart and find the product we want to update 
   let matchingItem;  
 
@@ -77,10 +76,10 @@ export function updateDeliveryOption(productId, deliveryOptionId) { // when we u
   saveToStorage();
 }
 
-export function loadCart(func) { //Callback (a function to run in the future) // we will call it func which means it contains a function so we basically save the function renderProductsGrid in a parameter called func
+export function loadCart(func) { 
   const xhr = new XMLHttpRequest();
 
-  xhr.addEventListener('load', () => { // It takes 2 param first is the event we want to listen for in this case the stringg load which means the response has loaded. Second param is the function we want to run after the response loads
+  xhr.addEventListener('load', () => { 
     console.log(xhr.response);
     func();
   });
