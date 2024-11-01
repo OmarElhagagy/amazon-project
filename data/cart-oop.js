@@ -1,15 +1,9 @@
-// in am object we cant use export or let or const 
-// "this" gives us the object that contains this function so it gives us the outer object in this case it gives us the cart object
-// oop Tries to represent the real world and Easy to create multiple objects we just created a completely seperate cart by copying this object
-//  function to create multiple objects
-// Use PascalCase for things that generate objects
-
 function Cart(localStorageKey) {
   const cart = {
-    cartItems: undefined, // same as let cart = undefined and when we want to access this cart property we will use cart.cart it can be confusing so we will rename it
+    cartItems: undefined, 
   
-    loadFromStorage() { //function inside an object called Method. There is a shorthand property instead of loadFromStorage: function() we can just write loadFromStorage() {}
-      this.cartItems = JSON.parse(localStorage.getItem(localStorageKey));// we are loading from the same key in localStorage which is cart-oop every cart we generate it will get its data from same space from localStorage so we will replace it with a parameter //cart.cartItem to access the cartItems values
+    loadFromStorage() { 
+      this.cartItems = JSON.parse(localStorage.getItem(localStorageKey));
     
       if (!this.cartItems) {
         this.cartItems = [{ 
